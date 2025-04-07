@@ -68,6 +68,27 @@ if ( s8a > 5 ) {
 }
 ````
 ##  3. A project shall not contain unused variables.
+```cpp
+class C
+{
+extern void usefn ( int16_t a, int16_t b );
+...
+};
+C c; // Non-compliant - unused
+void withunusedvar ( void )
+{
+int16_t unusedvar; struct s_tag
+// Non-compliant – unused
+{
+signed int a : 3;
+signed int pad : 1; signed int b : 2;
+} s_var;
+s_var.a = 0;
+s_var.b = 0;
+usefn ( s_var.a, s_var.b );
+// Non-compliant – should be unnamed
+}
+```
 ##  4. A project shall not contain non-volatile POD variables having only one use.
 ##  5. A project shall not contain unused type declarations.
 ##  6. A project shall not contain instances of non-volatile variables being given values that are never subsequently used.
