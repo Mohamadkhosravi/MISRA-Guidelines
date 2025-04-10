@@ -90,6 +90,16 @@ usefn ( s_var.a, s_var.b );
 }
 ```
 ##  4. A project shall not contain non-volatile POD variables having only one use.
+```cpp
+const int16_t x = 19; const int16_t y = 21; void usedonlyonce ( void )
+{
+// Compliant
+// Non-compliant
+int16_t once_1 = 42; int16_t once_2;
+once_2 = x ; // Non-compliant
+// Non-compliant
+}
+```
 ##  5. A project shall not contain unused type declarations.
 ##  6. A project shall not contain instances of non-volatile variables being given values that are never subsequently used.
 ##  7. The value returned by a function having a non-void return type that is not an overloaded operator shall always be used.
