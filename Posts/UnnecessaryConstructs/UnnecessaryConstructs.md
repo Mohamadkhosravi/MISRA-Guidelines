@@ -108,6 +108,41 @@ return 67;
 }
 ```
 ##  6. A project shall not contain instances of non-volatile variables being given values that are never subsequently used.
+```cpp
+int16_t critical ( int16_t i, int16_t j ){
+int16_t result = 0;
+int16_t k = ( 3 * i ) + ( j * j );
+// Should k be checked here?
+if ( f2 ( ) )
+{
+// k will only be tested here if f2 returns true
+// Initialization of k could be moved here
+if ( k > 0 )
+{
+throw ( 42 );
+}
+}
+// Non-compliant – value of k not used if f2 ( ) returns false
+return ( result );
+}
+void unusedvalue ( int16_t arr[ 20 ] )
+{
+int16_t j;
+j = 2;
+{
+for ( int16_t i = 1; i < 10; i++ )
+arr[ i ] = arr[ j ];
+j++; // Non-compliant – the value assigned to j
+} // on the final loop is never used.
+}
+void nounusedvalue ( int16_t arr[ 20 ] )
+{
+for ( int16_t i = 1; i < 10; i++ )
+{
+arr[ i ] = arr[ i + 2 ];
+}
+}
+```
 ##  7. The value returned by a function having a non-void return type that is not an overloaded operator shall always be used.
 ##  8. All functions with void return type shall have external side effect(s).
 ##  9. There shall be no dead code.
